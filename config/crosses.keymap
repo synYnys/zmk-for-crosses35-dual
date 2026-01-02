@@ -52,10 +52,10 @@
         raise_layer {
             display-name = "Raise";
             bindings = <
-&kp LS(N1)  &kp LS(N2)  &kp LS(N3)     &kp LS(N4)      &kp LS(LEFT_BRACKET)  &kp LS(RIGHT_BRACKET)  &kp F1         &kp F2         &kp F3   &kp F4
-&kp LS(N5)  &kp LS(N6)  &kp LS(N7)     &kp LS(N8)      &kp LS(SEMICOLON)     &kp LS(SQT)            &kp F5         &kp F6         &kp F7   &kp F8
-&kp LS(N9)  &kp LS(N0)  &kp LS(MINUS)  &kp LS(EQUAL)   &kp LS(BACKSLASH)     &none                  &kp F9         &kp F10        &kp F11  &kp F12
-                        &kp LCTRL      &kp LEFT_SHIFT  &kp SPACE             &trans                 &kp BACKSPACE  &kp RIGHT_ALT
+&kp LS(N1)  &kp LS(N2)  &kp LS(N3)     &kp LS(N4)      &kp LS(LEFT_BRACKET)  &kp LS(RIGHT_BRACKET)  &none           &none           &none            &none
+&kp LS(N5)  &kp LS(N6)  &kp LS(N7)     &kp LS(N8)      &kp LS(SEMICOLON)     &kp LS(SQT)            &none           &kp UP_ARROW    &none            &none
+&kp LS(N9)  &kp LS(N0)  &kp LS(MINUS)  &kp LS(EQUAL)   &kp LS(BACKSLASH)     &none                  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &none
+                        &kp LCTRL      &kp LEFT_SHIFT  &kp SPACE             &trans                 &kp BACKSPACE   &kp RIGHT_ALT
             >;
         };
 
