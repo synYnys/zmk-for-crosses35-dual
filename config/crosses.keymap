@@ -62,10 +62,10 @@
         mouse_layer {
             display-name = "Mouse";
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 3  &none      &bt BT_CLR  &bt BT_CLR  &none      &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0
-&none         &none         &none         &none      &none       &none       &none      &none         &none         &none
-&trans        &none         &none         &none      &none       &none       &none      &none         &none         &trans
-                            &mkp MCLK     &mkp LCLK  &mkp RCLK   &mkp RCLK   &mkp LCLK  &mkp MCLK
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 3    &none           &bt BT_CLR       &bt BT_CLR  &none      &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0
+&kp LEFT_ALT  &kp LEFT_WIN  &none           &kp UP_ARROW    &none            &none       &none      &none         &none         &none
+&trans        &kp CAPS      &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &none       &none      &none         &none         &trans
+                            &mkp MCLK       &mkp LCLK       &mkp RCLK        &mkp LCLK   &mkp RCLK  &mkp MCLK
             >;
         };
     };
