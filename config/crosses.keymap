@@ -44,8 +44,8 @@
             bindings = <
 &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp F1         &kp F2         &kp F3   &kp F4
 &kp NUMBER_5  &kp NUMBER_6  &kp NUMBER_7  &kp NUMBER_8    &kp SEMICOLON     &kp SQT            &kp F5         &kp F6         &kp F7   &kp F8
-&kp NUMBER_9  &kp NUMBER_0  &kp MINUS     &kp EQUAL       &kp BACKSLASH     &none              &kp F9         &kp F10        &kp F11  &kp F12
-                            &kp LCTRL     &kp LEFT_SHIFT  &trans            &kp ENTER          &kp BACKSPACE  &kp RIGHT_WIN
+&kp NUMBER_9  &kp NUMBER_0  &kp MINUS     &kp EQUAL       &kp BACKSLASH     &kp PLUS           &kp F9         &kp F10        &kp F11  &kp F12
+                            &kp LCTRL     &kp LEFT_SHIFT  &kp LEFT_WIN      &kp ENTER          &kp BACKSPACE  &kp RIGHT_WIN
             >;
         };
 
