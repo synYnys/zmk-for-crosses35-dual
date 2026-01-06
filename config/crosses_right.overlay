@@ -2,8 +2,10 @@
 
 &spi1 {
     trackball_peripheral@0 {
+        /* センサー自体のCPI設定 */
         cpi = <800>;
         x-invert;
+        /* y-invert; */
     };
 };
 
@@ -12,19 +14,20 @@
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
-        type = <0x02>;
-        codes = <0x00 0x01>;
+        type = <0x02>;  /* RELATIVE_AXIS (マウス移動) */
+        codes = <0x00 0x01>; /* X軸, Y軸 */
         track-remainders;
-        
-        /* ここで速度倍率を決めます（5/2 = 2.5倍） */
-        val = <5>;
-        div = <2>;
+
+        /* 【修正箇所】 val/div ではなく numerator/denominator を使うか、省略形を確認 */
+        /* ZMKの標準的なスケーラーは、第1引数=分子、第2引数=分母 を受け取ります */
+        /* そのため、ここでの定義ではなく、下で適用するときに数値を渡します */
     };
 
-    /* 【修正箇所】あだ名ではなく「階層」で指定して適用します */
     split_inputs {
         trackball_peripheral_split@0 {
-            input-processors = <&trackball_scaler>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+            /* ここで <&trackball_scaler 分子 分母> の順に数字を渡します */
+            /* 5 2 なら 5/2 = 2.5倍速になります */
+            input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
         };
     };
 };
