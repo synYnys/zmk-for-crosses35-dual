@@ -48,4 +48,3 @@
   },
   "sensors": ["encoder_left", "encoder_right"]
 }
-}
