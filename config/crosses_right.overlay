@@ -1,31 +1,30 @@
 /* crosses_right.overlay */
 
+/* 1. センサーの感度設定 */
+/* &spi1 の中にある trackball_central@0 を直接指定して書き換えます */
 &spi1 {
-    trackball_peripheral@0 {
-        /* センサー自体のCPI設定 */
+    trackball_central@0 {
         cpi = <800>;
         x-invert;
+        /* Y軸反転が必要な場合はコメントアウトを外す */
         /* y-invert; */
     };
 };
 
 / {
-    /* 加速装置（スケーラー）の定義 */
+    /* 2. 加速装置（スケーラー）の作成 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <2>; /* ←重要：ここで「数字を2つ受け取る」と宣言しています */
-        type = <0x02>;  /* RELATIVE_AXIS (マウス移動) */
-        codes = <0x00 0x01>; /* X軸, Y軸 */
+        #input-processor-cells = <2>;
+        type = <0x02>;
+        codes = <0x00 0x01>;
         track-remainders;
-        
-        /* 【修正】ここに val = <5>; などを書いてはいけません。削除しました。 */
     };
 
-    split_inputs {
-        trackball_peripheral_split@0 {
-            /* 【重要】ここで数字を渡します */
-            /* <&trackball_scaler 分子 分母> の順です。 5 2 = 2.5倍速 */
-            input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
-        };
+    /* 3. 加速装置の適用 */
+    /* ルートにある trackball_central_listener を直接指定して書き換えます */
+    trackball_central_listener {
+        /* ここで倍率を指定（5 2 = 2.5倍） */
+        input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
     };
 };
