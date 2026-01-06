@@ -1,8 +1,21 @@
-/* config/crosses_right.overlay */
-
+/* トラックボールの設定 */
 &spi1 {
-    trackball_central@0 {
-        /* 高速化（2400 CPI） */
-        cpi = <2400>;
+    trackball_peripheral@0 {
+        /* CPIは一応書いておきますが、下の設定で加速させるのでそのままでOKです */
+        cpi = <800>;
+        x-invert;
+        /* y-invert は必要に応じて削除/追加してください */
     };
+};
+
+/* ここで強制的に速度を変えます */
+&zip_xy_scaler {
+    /* 分子(val) ÷ 分母(div) = 倍率 になります */
+    val = <5>;  /* 分子：5 */
+    div = <2>;  /* 分母：2  つまり 5÷2 = 2.5倍速 */
+};
+
+/* トラックボールに上記の設定を適用する */
+&trackball_peripheral_split {
+    input-processors = <&zip_xy_scaler>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
 };
