@@ -1,20 +1,8 @@
 /* config/crosses_right.overlay */
 
-#include <dt-bindings/zmk/input_transform.h>
-
-/* 1. 加速用の計算式を定義 */
-/ {
-    /* 3倍 に加速するスケーラー */
-    zip_fast_scaler: zip_fast_scaler {
-        compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <2>;
-        type = <INPUT_EV_REL>;
-        codes = <INPUT_REL_X>, <INPUT_REL_Y>;
-        track-remainders;
+&spi1 {
+    trackball_central@0 {
+        /* 高速化（2400 CPI） */
+        cpi = <2400>;
     };
-};
-
-/* 2. 右手（Central）の処理に「加速」を割り込ませる */
-&trackball_central_listener {
-    input-processors = <&zip_fast_scaler 3 1>, <&zip_ble_report_rate_limit>;
 };
