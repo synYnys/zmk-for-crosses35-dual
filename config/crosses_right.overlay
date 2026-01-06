@@ -1,18 +1,17 @@
 /* crosses_right.overlay */
 
-/* 1. センサーの感度設定 */
-/* &spi1 の中にある trackball_central@0 を直接指定して書き換えます */
 &spi1 {
     trackball_central@0 {
         cpi = <800>;
-        x-invert;
-        /* Y軸反転が必要な場合はコメントアウトを外す */
+        /* x-invert; を削除しました（これで逆方向になります） */
+        
+        /* もし上下も逆なら、下のコメントアウトを外してください */
         /* y-invert; */
     };
 };
 
 / {
-    /* 2. 加速装置（スケーラー）の作成 */
+    /* 加速装置（スケーラー）の定義 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -21,10 +20,12 @@
         track-remainders;
     };
 
-    /* 3. 加速装置の適用 */
-    /* ルートにある trackball_central_listener を直接指定して書き換えます */
-    trackball_central_listener {
-        /* ここで倍率を指定（5 2 = 2.5倍） */
-        input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+    /* スケーラーの適用 */
+    split_inputs {
+        trackball_split: trackball_split {
+            compatible = "zmk,input-split";
+            device = <&trackball_central>;
+            input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+        };
     };
 };
