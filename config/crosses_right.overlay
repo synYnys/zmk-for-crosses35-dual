@@ -1,0 +1,11 @@
+/* config/crosses_right.overlay */
+
+&spi1 {
+    trackball_peripheral@0 {
+        /* 数字を大きくすると速くなります（標準は600くらい?） */
+        /* 思い切り速くしたいなら 1200〜1500 などを試してください */
+        cpi = <1200>;
+
+
+    };
+};
