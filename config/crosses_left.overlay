@@ -1,18 +1,18 @@
-/* crosses_right.overlay */
+/* config/crosses_left.overlay */
 
-/* 1. センサーの感度設定 */
-/* spi1の中にある trackball_central@0 を直接指定して上書き */
 &spi1 {
-    trackball_central@0 {
-        cpi = <800>;
+    trackball_peripheral@0 {
+        /* Set CPI */
+        cpi = <600>;
+        
+        /* Invert both axes */
         x-invert;
-        /* Y軸反転が必要なら以下を有効化 */
         y-invert;
     };
 };
 
 / {
-    /* 2. 加速装置（スケーラー）の作成 */
+    /* Define Scaler */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -21,12 +21,18 @@
         track-remainders;
     };
 
-    /* 3. 加速装置の適用 */
-    /* 既存の split_inputs の中にある trackball_peripheral_split@0 を指定 */
-    split_inputs {
-        trackball_peripheral_split@0 {
-            /* ここで倍率を指定（5 2 = 2.5倍） */
-            input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
-        };
-    };
+    /* Apply Scaler */
+    /* We need to target the existing input listener or split input node */
+    /* Since we don't know the exact label, we target by path or generic label if available */
+    /* Assuming 'trackball_peripheral_split' is the label from the shield definition */
+};
+
+/* Apply input processors to the split input node */
+/* Note: The error said 'trackball_central' was undefined. */
+/* We must target the correct node for the left side. */
+/* If the left side is the peripheral, the node is likely labeled 'trackball_peripheral_split' in the dtsi */
+
+&trackball_peripheral_split {
+    /* 1/6 speed = 1 (numerator) / 6 (denominator) */
+    input-processors = <&trackball_scaler 1 6>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
 };
