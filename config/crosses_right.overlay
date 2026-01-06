@@ -1,12 +1,22 @@
 /* config/crosses_right.overlay */
 
-&spi1 {
-    trackball_central@0 {
-        /* 爆速にする */
-        cpi = <2000>;
-        
-        /* 必要であれば方向反転を有効にしてください */
-        // x-invert;
-        // y-invert;
+#include <dt-bindings/zmk/input_transform.h>
+
+/ {
+    /* 速度調整用のスケーラー（掛け算）を定義 */
+    zip_temp_scaler_right: zip_temp_scaler_right {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X>, <INPUT_REL_Y>;
+        track-remainders;
     };
+};
+
+/* 右手トラックボール（Central）の信号処理を上書き */
+/* ※ここは環境によって名前が違う可能性がありますが、前回のログから中央側リスナーをターゲットにします */
+&trackball_central_listener {
+    input-processors = 
+        <&zip_temp_scaler_right 3 1>, /* 3/1倍 (3倍) に加速 */
+        <&zip_ble_report_rate_limit>;
 };
