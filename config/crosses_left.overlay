@@ -5,7 +5,7 @@
     trackball_peripheral@0 {
         cpi = <600>;
         /* 上下左右すべて反転 */
-        x-invert;
+        /delete-property/ x-invert;
         y-invert;
     };
 };
