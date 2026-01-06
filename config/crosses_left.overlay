@@ -3,17 +3,18 @@
 
 &spi1 {
     trackball_peripheral@0 {
-        /* 感度は遅めの300 */
         cpi = <300>;
         
-        /* ドライバ側の反転設定は全て削除（ソフト側で制御するため） */
-        /delete-property/ x-invert;
+        /* 【縦(X)】以前「これで成功した」実績のあるドライバ設定に戻します */
+        x-invert;
+        
+        /* 【横(Y)】ドライバ設定は効かなかったので消します */
         /delete-property/ y-invert;
     };
 };
 
 / {
-    /* 減速装置（スケーラー） */
+    /* 減速装置 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -22,17 +23,15 @@
         track-remainders;
     };
 
-    /* 適用 */
     split_inputs {
         trackball_peripheral_split@0 {
-            /* 処理の流れ:
-               1. スケーラーで 1/12 に減速
-               2. zip_xy_transform で「縦(X)と横(Y)の両方を反転」
-               3. スクロールに変換
-               4. 通信制限
+            /* 1. 減速 (1/12)
+               2. 【横(Y)のみ】ソフト側で強制反転 (INPUT_TRANSFORM_Y_INVERT)
+                  ※縦は上のドライバ設定で反転済みなので、ここでは何もしません
+               3. スクロール変換
             */
             input-processors = <&trackball_scaler 1 12>, 
-                               <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>, 
+                               <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, 
                                <&zip_xy_to_scroll_mapper>, 
                                <&zip_ble_report_rate_limit>;
         };
