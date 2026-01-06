@@ -1,16 +1,21 @@
 /* crosses_left.overlay */
+#include <dt-bindings/zmk/input_transform.h>
 
-/* 1. センサーの感度と反転設定 */
 &spi1 {
     trackball_peripheral@0 {
-        cpi = <600>;
-        /* 上下左右すべて反転 */
-        /delete-property/ x-invert;
+        /* 感度を下げて物理的に遅くする */
+        cpi = <300>;
         
+        /* 縦(X)は成功しているので、そのままx-invertを残す */
+        x-invert;
+        
+        /* 横(Y)はドライバで効かないので削除（ソフト側でやります） */
+        /delete-property/ y-invert;
     };
 };
 
 / {
+    /* 1. 速度調整（1/12） */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -19,11 +24,15 @@
         track-remainders;
     };
 
+    /* 2. 適用 */
     split_inputs {
         trackball_peripheral_split@0 {
-            /* 【修正】速度を 1/6 -> 1/12 に変更（さらに半分に減速） */
-            /* CPI低下と合わせて、前回の約4倍遅くなります */
-            input-processors = <&trackball_scaler 1 12>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+            /* 処理順:
+               1. スケーラーで減速 (1/12)
+               2. トランスフォームで「Y軸だけ」強制反転 (INPUT_TRANSFORM_Y_INVERT)
+               3. スクロールに変換
+            */
+            input-processors = <&trackball_scaler 1 12>, <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
         };
     };
 };
