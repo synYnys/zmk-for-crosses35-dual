@@ -3,18 +3,20 @@
 
 &spi1 {
     trackball_peripheral@0 {
+        /* 感度設定（ここもスピードに影響します） */
         cpi = <300>;
         
-        /* 【縦(X)】以前「これで成功した」実績のあるドライバ設定に戻します */
+        /* 【縦(X)】実績のある「ドライバでの反転」を採用 */
         x-invert;
         
-        /* 【横(Y)】ドライバ設定は効かなかったので消します */
+        /* 【横(Y)】ドライバで効かないので削除（下でソフト的に反転します） */
         /delete-property/ y-invert;
     };
 };
 
 / {
-    /* 減速装置 */
+    /* 1. スピード調整機（スケーラー） */
+    /* ここで速度を決めます！ */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -23,17 +25,23 @@
         track-remainders;
     };
 
+    /* 2. 適用（ここが重要） */
     split_inputs {
         trackball_peripheral_split@0 {
-            /* 1. 減速 (1/12)
-               2. 【横(Y)のみ】ソフト側で強制反転 (INPUT_TRANSFORM_Y_INVERT)
-                  ※縦は上のドライバ設定で反転済みなので、ここでは何もしません
-               3. スクロール変換
-            */
-            input-processors = <&trackball_scaler 1 12>, 
-                               <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, 
-                               <&zip_xy_to_scroll_mapper>, 
-                               <&zip_ble_report_rate_limit>;
+            input-processors = 
+                /* ▼▼▼ ここでスピード調整！ ▼▼▼ */
+                /* <1 12> なら「1/12倍速（かなり遅い）」 */
+                /* もっと速くしたいなら <1 6> や <1 3> に変えてください */
+                <&trackball_scaler 1 12>, 
+                
+                /* ▼▼▼ ここで横(Y)だけ強制反転！ ▼▼▼ */
+                <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, 
+                
+                /* スクロール機能へ変換 */
+                <&zip_xy_to_scroll_mapper>, 
+                
+                /* 通信制限 */
+                <&zip_ble_report_rate_limit>;
         };
     };
 };
