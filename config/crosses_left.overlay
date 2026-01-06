@@ -6,12 +6,11 @@
         cpi = <600>;
         /* 上下左右すべて反転 */
         /delete-property/ x-invert;
-        y-invert;
+        
     };
 };
 
 / {
-    /* 2. 加速装置（スケーラー）の作成 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -20,11 +19,11 @@
         track-remainders;
     };
 
-    /* 3. 設定の適用（あだ名ではなく階層で指定） */
     split_inputs {
         trackball_peripheral_split@0 {
-            /* 1 6 = 1/6 の速度に設定 */
-            input-processors = <&trackball_scaler 1 6>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+            /* 【修正】速度を 1/6 -> 1/12 に変更（さらに半分に減速） */
+            /* CPI低下と合わせて、前回の約4倍遅くなります */
+            input-processors = <&trackball_scaler 1 12>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
         };
     };
 };
