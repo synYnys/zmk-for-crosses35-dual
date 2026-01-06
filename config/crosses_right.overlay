@@ -10,7 +10,7 @@
     };
 };
 / {
-    /* 2. 加速装置（スケーラー）の作成 */
+    /* 加速装置（スケーラー） */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -19,13 +19,13 @@
         track-remainders;
     };
 
-    /* 3. リスナー（監視役）を新しく作る */
-    /* これがないとエラーになるため、手動で作成します */
+    /* リスナー設定 */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_central>;
         
-        /* ここで倍率を指定（5 2 = 2.5倍） */
-        input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+        /* 【修正1】スクロール変換を削除（ポインター動作に戻す） */
+        /* 【修正2】数値を <5 1> に変更（これで5倍速になります） */
+        input-processors = <&trackball_scaler 5 1>, <&zip_ble_report_rate_limit>;
     };
 };
