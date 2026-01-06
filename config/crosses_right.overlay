@@ -1,21 +1,30 @@
-/* トラックボールの設定 */
+/* crosses_right.overlay */
+
 &spi1 {
     trackball_peripheral@0 {
-        /* CPIは一応書いておきますが、下の設定で加速させるのでそのままでOKです */
+        /* ハードウェア側の設定 */
         cpi = <800>;
         x-invert;
-        /* y-invert は必要に応じて削除/追加してください */
+        /* Y軸の反転が必要な場合は下記を追加してください */
+        /* y-invert; */
     };
 };
 
-/* ここで強制的に速度を変えます */
-&zip_xy_scaler {
-    /* 分子(val) ÷ 分母(div) = 倍率 になります */
-    val = <5>;  /* 分子：5 */
-    div = <2>;  /* 分母：2  つまり 5÷2 = 2.5倍速 */
+/ {
+    /* 加速装置（スケーラー）をここで新規作成します */
+    trackball_scaler: trackball_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <0x02>; /* マウスの動き(REL_X, REL_Y)を対象にする */
+        codes = <0x00 0x01>; /* X軸とY軸 */
+        
+        /* ここで倍率を決めます（5/2 = 2.5倍） */
+        val = <5>;
+        div = <2>;
+    };
 };
 
-/* トラックボールに上記の設定を適用する */
+/* 作った加速装置をトラックボールにセットします */
 &trackball_peripheral_split {
-    input-processors = <&zip_xy_scaler>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+    input-processors = <&trackball_scaler>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
 };
