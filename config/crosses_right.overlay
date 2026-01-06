@@ -1,14 +1,17 @@
 /* crosses_right.overlay */
 
-/* すでにある trackball_central を上書き設定します */
-&trackball_central {
-    cpi = <800>;
-    x-invert;
-    /* 必要なら y-invert; も追加 */
+&spi1 {
+    trackball_peripheral@0 {
+        /* センサーの感度設定 */
+        cpi = <800>;
+        x-invert;
+        /* Y軸反転が必要な場合はコメントアウトを外す */
+        /* y-invert; */
+    };
 };
 
 / {
-    /* 加速装置（スケーラー）の定義 */
+    /* 加速装置（スケーラー）の作成 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -16,16 +19,10 @@
         codes = <0x00 0x01>;
         track-remainders;
     };
+};
 
-    /* スケーラーを適用した入力設定を作成 */
-    split_inputs {
-        trackball_split: trackball_split {
-            compatible = "zmk,input-split";
-            /* ここで既存の trackball_central を指定します */
-            device = <&trackball_central>;
-            
-            /* スケーラー適用（5/2 = 2.5倍） */
-            input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
-        };
-    };
+/* 作った加速装置をトラックボールに適用 */
+&trackball_peripheral_split {
+    /* 5 2 = 2.5倍速の設定 */
+    input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
 };
