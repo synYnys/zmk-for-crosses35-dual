@@ -1,18 +1,17 @@
-/* config/crosses_left.overlay */
+/* crosses_left.overlay */
 
+/* 1. センサーの感度と反転設定 */
 &spi1 {
     trackball_peripheral@0 {
-        /* Set CPI */
         cpi = <600>;
-        
-        /* Invert both axes */
+        /* 上下左右すべて反転 */
         x-invert;
         y-invert;
     };
 };
 
 / {
-    /* Define Scaler */
+    /* 2. 加速装置（スケーラー）の作成 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -21,18 +20,11 @@
         track-remainders;
     };
 
-    /* Apply Scaler */
-    /* We need to target the existing input listener or split input node */
-    /* Since we don't know the exact label, we target by path or generic label if available */
-    /* Assuming 'trackball_peripheral_split' is the label from the shield definition */
-};
-
-/* Apply input processors to the split input node */
-/* Note: The error said 'trackball_central' was undefined. */
-/* We must target the correct node for the left side. */
-/* If the left side is the peripheral, the node is likely labeled 'trackball_peripheral_split' in the dtsi */
-
-&trackball_peripheral_split {
-    /* 1/6 speed = 1 (numerator) / 6 (denominator) */
-    input-processors = <&trackball_scaler 1 6>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+    /* 3. 設定の適用（あだ名ではなく階層で指定） */
+    split_inputs {
+        trackball_peripheral_split@0 {
+            /* 1 6 = 1/6 の速度に設定 */
+            input-processors = <&trackball_scaler 1 6>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+        };
+    };
 };
