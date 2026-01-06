@@ -3,12 +3,10 @@
 &spi1 {
     trackball_central@0 {
         cpi = <800>;
-        /* x-invert; を削除しました（これで逆方向になります） */
-        
-        /* もし上下も逆なら、下のコメントアウトを外してください */
-        /* y-invert; */
+        /* 以前の設定のまま（反転なし） */
     };
 };
+
 / {
     /* 加速装置（スケーラー） */
     trackball_scaler: trackball_scaler {
@@ -24,8 +22,7 @@
         compatible = "zmk,input-listener";
         device = <&trackball_central>;
         
-        /* 【修正1】スクロール変換を削除（ポインター動作に戻す） */
-        /* 【修正2】数値を <5 1> に変更（これで5倍速になります） */
-        input-processors = <&trackball_scaler 5 1>, <&zip_ble_report_rate_limit>;
+        /* 【修正】数値を <3 1> に変更（これで3倍速になります） */
+        input-processors = <&trackball_scaler 3 1>, <&zip_ble_report_rate_limit>;
     };
 };
