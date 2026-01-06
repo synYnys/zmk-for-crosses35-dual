@@ -1,18 +1,36 @@
 /* config/crosses_left.overlay */
 
+#include <dt-bindings/zmk/input_transform.h>
+
+/* 1. センサー自体の設定（反転と基本感度） */
 &spi1 {
     trackball_peripheral@0 {
-        /* CPIは標準的な値に戻す */
-        cpi = <600>;
-        
-        /* 縦も横も反転させる */
-        y-invert;
+        /* ここで上下左右を逆にします */
         x-invert;
+        y-invert;
+        
+        /* 基本感度（下げすぎると動かなくなるので標準的に） */
+        cpi = <300>;
     };
 };
 
-/* 入力の設定を上書きして、速度を1/4に落とす */
-&trackball_peripheral_split {
-    /* 解像度を4で割る（減速）設定 */
-    resolution-divisor = <4>;
+/* 2. 減速用の計算式を定義 */
+/ {
+    /* 1/5 に減速するスケーラー */
+    zip_slow_scaler: zip_slow_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X>, <INPUT_REL_Y>;
+        track-remainders;
+    };
+};
+
+/* 3. 左手の入力装置に「減速処理」を割り込ませる（住所で指定） */
+/ {
+    split_inputs {
+        trackball_peripheral_split@0 {
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_slow_scaler 1 5>;
+        };
+    };
 };
