@@ -1,18 +1,20 @@
 /* crosses_left.overlay */
+#include <dt-bindings/zmk/input_transform.h>
 
 &spi1 {
     trackball_peripheral@0 {
-        /* 1. ドライバ側の設定はすべて「標準（反転なし）」に戻します */
-        /* これで基準を統一します */
+        /* 感度は遅めの300 */
         cpi = <300>;
+        
+        /* ドライバ側の反転設定は全て削除（ソフト側で制御するため） */
         /delete-property/ x-invert;
         /delete-property/ y-invert;
     };
 };
 
 / {
-    /* 2. 減速装置（1/12スピード） */
-    scaler_slow: scaler_slow {
+    /* 減速装置（スケーラー） */
+    trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
         type = <0x02>;
@@ -20,22 +22,19 @@
         track-remainders;
     };
 
-    /* 3. 【新設】強制反転装置（インバーター） */
-    /* これでソフト的に確実に上下左右をひっくり返します */
-    xy_inverter: xy_inverter {
-        compatible = "zmk,input-processor-transform";
-        #input-processor-cells = <0>;
-        type = <0x02>;
-        x-codes = <0x00>;
-        y-codes = <0x01>;
-        x-invert; /* 縦を反転 */
-        y-invert; /* 横を反転 */
-    };
-
-    /* 4. 適用（順番：減速 → 反転 → スクロール変換 → 通信制限） */
+    /* 適用 */
     split_inputs {
         trackball_peripheral_split@0 {
-            input-processors = <&scaler_slow 1 12>, <&xy_inverter>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+            /* 処理の流れ:
+               1. スケーラーで 1/12 に減速
+               2. zip_xy_transform で「縦(X)と横(Y)の両方を反転」
+               3. スクロールに変換
+               4. 通信制限
+            */
+            input-processors = <&trackball_scaler 1 12>, 
+                               <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>, 
+                               <&zip_xy_to_scroll_mapper>, 
+                               <&zip_ble_report_rate_limit>;
         };
     };
 };
