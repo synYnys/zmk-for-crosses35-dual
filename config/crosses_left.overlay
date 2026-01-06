@@ -2,23 +2,31 @@
 
 &spi1 {
     trackball_peripheral@0 {
-        /* 感度は標準に戻す（割り算で遅くするため） */
+        /* 感度設定 */
         cpi = <600>;
-        
-        /* 上下（Sensor X）はOKだったので反転のまま */
+
+        /* 【修正】X軸とY軸の両方を反転させます */
         x-invert;
-        
-        /* 左右（Sensor Y）がダメだったので、反転設定を削除 */
-        /delete-property/ y-invert;
+        y-invert;
     };
 };
 
-/* 信号を強制的に間引く設定（住所で指定） */
 / {
+    /* 加速装置（スケーラー）の作成 */
+    trackball_scaler: trackball_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <0x02>;
+        codes = <0x00 0x01>;
+        track-remainders;
+    };
+
+    /* 設定の適用 */
     split_inputs {
         trackball_peripheral_split@0 {
-            /* 動きを 1/6 に減速（数字を大きくするとさらに遅くなる） */
-  
+            /* <&trackball_scaler 分子 分母> */
+            /* 1 6 で 1/6 の速度（減速）になります */
+            input-processors = <&trackball_scaler 1 6>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
         };
     };
 };
