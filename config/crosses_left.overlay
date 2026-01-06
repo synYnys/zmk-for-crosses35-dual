@@ -1,38 +1,42 @@
 /* crosses_left.overlay */
-#include <dt-bindings/zmk/input_transform.h>
 
 &spi1 {
     trackball_peripheral@0 {
-        /* 感度を下げて物理的に遅くする */
+        /* 物理的な感度設定（遅くする） */
         cpi = <300>;
         
-        /* 縦(X)は成功しているので、そのままx-invertを残す */
+        /* 縦(X)は合っているのでドライバ反転を残す */
         x-invert;
-        
-        /* 横(Y)はドライバで効かないので削除（ソフト側でやります） */
+        /* 横(Y)はドライバ設定を消す（スケーラーで反転させるため） */
         /delete-property/ y-invert;
     };
 };
 
 / {
-    /* 1. 速度調整（1/12） */
-    trackball_scaler: trackball_scaler {
+    /* 【X軸（縦）専用】ただの1/12減速 */
+    scaler_x: scaler_x {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
         type = <0x02>;
-        codes = <0x00 0x01>;
+        codes = <0x00>; /* X軸のみ対象 */
         track-remainders;
     };
 
-    /* 2. 適用 */
+    /* 【Y軸（横）専用】マイナスを掛けて反転＆1/12減速 */
+    scaler_y: scaler_y {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <0x02>;
+        codes = <0x01>; /* Y軸のみ対象 */
+        track-remainders;
+    };
+
     split_inputs {
         trackball_peripheral_split@0 {
-            /* 処理順:
-               1. スケーラーで減速 (1/12)
-               2. トランスフォームで「Y軸だけ」強制反転 (INPUT_TRANSFORM_Y_INVERT)
-               3. スクロールに変換
+            /* <&scaler_x 1 12>    -> 縦は 1/12
+               <&scaler_y (-1) 12> -> 横は -1/12 (マイナスで強制反転) 
             */
-            input-processors = <&trackball_scaler 1 12>, <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+            input-processors = <&scaler_x 1 12>, <&scaler_y (-1) 12>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
         };
     };
 };
