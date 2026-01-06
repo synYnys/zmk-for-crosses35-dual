@@ -18,7 +18,7 @@
     split_inputs {
         trackball_peripheral_split@0 {
             /* 動きを 1/6 に減速（数字を大きくするとさらに遅くなる） */
-            resolution-divisor = <6>;
+  
         };
     };
 };
