@@ -1,27 +1,18 @@
 /* config/crosses_left.overlay */
 
-#include <dt-bindings/zmk/input_transform.h>
-
-/ {
-    /* 速度調整＆反転用のスケーラーを定義 */
-    zip_temp_scaler_left: zip_temp_scaler_left {
-        compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <2>;
-        type = <INPUT_EV_REL>;
-        codes = <INPUT_REL_X>, <INPUT_REL_Y>; /* 縦(Y)と横(X)の両方を対象にする */
-        track-remainders;
+&spi1 {
+    trackball_peripheral@0 {
+        /* CPIは標準的な値に戻す */
+        cpi = <600>;
+        
+        /* 縦も横も反転させる */
+        y-invert;
+        x-invert;
     };
 };
 
-/* 左手トラックボールの信号処理を上書き */
+/* 入力の設定を上書きして、速度を1/4に落とす */
 &trackball_peripheral_split {
-    input-processors = 
-        <&zip_xy_to_scroll_mapper>,  /* マウスの動きをスクロールに変換 */
-        
-        /* 以下の行で「反転」と「減速」を同時に行います */
-        /* 第1引数: -1 (マイナスにすると反転します) */
-        /* 第2引数: 4  (4分の1のスピードに減速します) */
-        <&zip_temp_scaler_left (-1) 4>,
-        
-        <&zip_ble_report_rate_limit>;
+    /* 解像度を4で割る（減速）設定 */
+    resolution-divisor = <4>;
 };
