@@ -9,9 +9,8 @@
         /* y-invert; */
     };
 };
-
 / {
-    /* 加速装置（スケーラー）の定義 */
+    /* 2. 加速装置（スケーラー）の作成 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -19,13 +18,11 @@
         codes = <0x00 0x01>;
         track-remainders;
     };
+};
 
-    /* スケーラーの適用 */
-    split_inputs {
-        trackball_split: trackball_split {
-            compatible = "zmk,input-split";
-            device = <&trackball_central>;
-            input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
-        };
-    };
+/* 3. 加速装置の適用 */
+/* 【重要】右側（USB接続側）は split_inputs ではなく、Listener を直接書き換えます */
+&trackball_central_listener {
+    /* ここで倍率を指定（5 2 = 2.5倍） */
+    input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
 };
