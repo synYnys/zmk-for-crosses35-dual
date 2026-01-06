@@ -2,29 +2,32 @@
 
 &spi1 {
     trackball_peripheral@0 {
-        /* ハードウェア側の設定 */
+        /* センサーの基本設定 */
         cpi = <800>;
         x-invert;
-        /* Y軸の反転が必要な場合は下記を追加してください */
+        /* Y軸の反転が必要な場合はコメントアウトを外してください */
         /* y-invert; */
     };
 };
 
 / {
-    /* 加速装置（スケーラー）をここで新規作成します */
+    /* 【ここが修正点】新しい加速装置(scaler)をここで「作成」します */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
-        type = <0x02>; /* マウスの動き(REL_X, REL_Y)を対象にする */
+        type = <0x02>;  /* マウスの動きを対象にする設定 */
         codes = <0x00 0x01>; /* X軸とY軸 */
-        
-        /* ここで倍率を決めます（5/2 = 2.5倍） */
+        track-remainders;
+
+        /* ここで速度倍率を決めます */
+        /* 分子(val) ÷ 分母(div) = 倍率 */
         val = <5>;
         div = <2>;
+        /* 5÷2 = 2.5倍速になります */
     };
 };
 
-/* 作った加速装置をトラックボールにセットします */
+/* 作った加速装置をトラックボールに適用します */
 &trackball_peripheral_split {
     input-processors = <&trackball_scaler>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
 };
