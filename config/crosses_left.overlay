@@ -1,18 +1,18 @@
-/* config/crosses_left.overlay */
+/* crosses_right.overlay */
 
+/* 1. センサーの感度設定 */
+/* spi1の中にある trackball_central@0 を直接指定して上書き */
 &spi1 {
-    trackball_peripheral@0 {
-        /* 感度設定 */
-        cpi = <600>;
-
-        /* 【修正】X軸とY軸の両方を反転させます */
+    trackball_central@0 {
+        cpi = <800>;
         x-invert;
+        /* Y軸反転が必要なら以下を有効化 */
         y-invert;
     };
 };
 
 / {
-    /* 加速装置（スケーラー）の作成 */
+    /* 2. 加速装置（スケーラー）の作成 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -21,12 +21,12 @@
         track-remainders;
     };
 
-    /* 設定の適用 */
+    /* 3. 加速装置の適用 */
+    /* 既存の split_inputs の中にある trackball_peripheral_split@0 を指定 */
     split_inputs {
         trackball_peripheral_split@0 {
-            /* <&trackball_scaler 分子 分母> */
-            /* 1 6 で 1/6 の速度（減速）になります */
-            input-processors = <&trackball_scaler 1 6>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
+            /* ここで倍率を指定（5 2 = 2.5倍） */
+            input-processors = <&trackball_scaler 5 2>, <&zip_xy_to_scroll_mapper>, <&zip_ble_report_rate_limit>;
         };
     };
 };
