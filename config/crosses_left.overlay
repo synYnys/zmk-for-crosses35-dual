@@ -2,11 +2,23 @@
 
 &spi1 {
     trackball_peripheral@0 {
-        /* 確実に効く範囲で遅くする（200 CPI） */
-        cpi = <200>;
+        /* 感度は標準に戻す（割り算で遅くするため） */
+        cpi = <600>;
         
-        /* 縦と横を反転（この書き方なら古いZMKでもOK） */
-        y-invert;
+        /* 上下（Sensor X）はOKだったので反転のまま */
         x-invert;
+        
+        /* 左右（Sensor Y）がダメだったので、反転設定を削除 */
+        /delete-property/ y-invert;
+    };
+};
+
+/* 信号を強制的に間引く設定（住所で指定） */
+/ {
+    split_inputs {
+        trackball_peripheral_split@0 {
+            /* 動きを 1/6 に減速（数字を大きくするとさらに遅くなる） */
+            resolution-divisor = <6>;
+        };
     };
 };
