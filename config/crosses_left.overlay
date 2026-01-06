@@ -1,12 +1,14 @@
 /* config/crosses_left.overlay */
 
-&trackball_peripheral {
-    /* スクロールのスピード調整 */
-    cpi = <300>;
+&spi1 {
+    trackball_peripheral@0 {
+        /* スクロールのスピード調整 (数字が小さいと遅い) */
+        cpi = <300>;
 
-    /* 回転方向の反転（縦） */
-    invert-y;
-    
-    /* 左右も逆にしたい場合は下の「//」を消す */
-    // invert-x;
+        /* 回転方向の反転（縦） */
+        invert-y;
+        
+        /* 左右も逆にしたい場合は下の「//」を消す */
+        // invert-x;
+    };
 };
