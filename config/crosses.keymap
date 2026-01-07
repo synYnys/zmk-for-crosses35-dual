@@ -63,7 +63,7 @@
             display-name = "Mouse";
             bindings = <
 &kp ESC         &kp TAB       &bt BT_SEL 3      &none           &bt BT_CLR        &bt BT_CLR  &bt BT_SEL 3  &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0
-&kp LEFT_SHIFT  &kp TAB       &kp LEFT_CONTROL  &kp UP_ARROW    &kp SPACE         &none       &none         &none         &none         &none
+&kp LEFT_SHIFT  &kp TAB       &kp LEFT_CONTROL  &kp UP_ARROW    &kp LEFT_SHIFT    &none       &none         &none         &none         &none
 &trans          &kp LEFT_ALT  &kp LEFT_ARROW    &kp DOWN_ARROW  &kp RIGHT_ARROW   &none       &none         &none         &none         &trans
                               &kp LEFT_WIN      &mkp RCLK       &kp LEFT_CONTROL  &mkp LCLK   &mkp RCLK     &mkp MCLK
             >;
