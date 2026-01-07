@@ -2,20 +2,20 @@
 
 &spi1 {
     trackball_central@0 {
-        /* 基本感度 (800) */
-        cpi = <800>;
+        /* カクつきを抑えるため、読み取り密度を上げます（800 -> 1200） */
+        cpi = <1200>;
     };
 };
 
 / {
-    /* スケーラー（加速装置）の設定はすべて削除しました */
-
     /* リスナー設定 */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_central>;
         
-        /* 【修正】スケーラーを削除し、デフォルトに戻しました */
-        input-processors = <&zip_ble_report_rate_limit>;
+        /* カクつきの最大の原因である「zip_ble_report_rate_limit」を削除します。
+           これにより、Bluetooth経由でも可能な限り高頻度で信号を送るようになります。
+        */
+        input-processors = <&zip_xy_scaler 1 1>; /* 1対1（加工なし）で送信 */
     };
 };
