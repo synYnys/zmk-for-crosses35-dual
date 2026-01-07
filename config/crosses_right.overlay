@@ -2,27 +2,20 @@
 
 &spi1 {
     trackball_central@0 {
+        /* 基本感度 (800) */
         cpi = <800>;
-        /* 以前の設定のまま（反転なし） */
     };
 };
 
 / {
-    /* 加速装置（スケーラー） */
-    trackball_scaler: trackball_scaler {
-        compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <2>;
-        type = <0x02>;
-        codes = <0x00 0x01>;
-        track-remainders;
-    };
+    /* スケーラー（加速装置）の設定はすべて削除しました */
 
     /* リスナー設定 */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_central>;
         
-        /* 【修正】数値を <3 1> に変更（これで3倍速になります） */
-        input-processors = <&trackball_scaler 2 1>, <&zip_ble_report_rate_limit>;
+        /* 【修正】スケーラーを削除し、デフォルトに戻しました */
+        input-processors = <&zip_ble_report_rate_limit>;
     };
 };
