@@ -24,6 +24,11 @@
             bindings = <&kp ESCAPE>;
             key-positions = <0 1>;
         };
+
+        L4 {
+            bindings = <&sl 4>;
+            key-positions = <32 33>;
+        };
     };
 
     keymap {
