@@ -24,11 +24,6 @@
             bindings = <&kp ESCAPE>;
             key-positions = <0 1>;
         };
-
-        L4 {
-            bindings = <&sl 4>;
-            key-positions = <32 33>;
-        };
     };
 
     keymap {
@@ -37,10 +32,10 @@
         default_layer {
             display-name = "Base";
             bindings = <
-&mt ESC Q           &kp L           &kp U                   &kp COMMA                  &kp PERIOD       &kp F        &kp W                &kp R             &kp Y            &kp P
-&mt LEFT_CONTROL E  &mt LEFT_ALT I  &mt LEFT_SHIFT A        &mt LEFT_COMMAND O         &kp MINUS        &kp K        &mt RIGHT_COMMAND T  &mt LEFT_SHIFT N  &mt RIGHT_ALT S  &mt RIGHT_CONTROL H
-&lt 3 Z             &lt 2 X         &lt 1 C                 &kp V                      &lt 4 SEMICOLON  &kp G        &kp D                &kp M             &kp J            &lt 1 B
-                                    &mt LEFT_ALT BACKSPACE  &mt LEFT_COMMAND CAPSLOCK  &lt 1 SPACE      &lt 2 ENTER  &mkp LCLK            &mkp RCLK
+&mt ESC Q           &kp L           &kp U             &kp COMMA           &kp PERIOD       &kp F        &kp W                   &kp R                    &kp Y            &kp P
+&mt LEFT_CONTROL E  &mt LEFT_ALT I  &mt LEFT_SHIFT A  &mt LEFT_COMMAND O  &kp MINUS        &kp K        &mt RIGHT_COMMAND T     &mt LEFT_SHIFT N         &mt RIGHT_ALT S  &mt RIGHT_CONTROL H
+&lt 3 Z             &lt 2 X         &lt 1 C           &kp V               &lt 4 SEMICOLON  &kp G        &kp D                   &kp M                    &kp J            &lt 1 B
+                                    &mkp RCLK         &mkp LCLK           &lt 1 SPACE      &lt 2 ENTER  &mt RIGHT_COMMAND CAPS  &mt RIGHT_ALT BACKSPACE
             >;
         };
 
