@@ -47,7 +47,7 @@
         lower_layer {
             display-name = "Lower";
             bindings = <
-&kp EQUAL  &kp NUMBER_7  &kp N8        &kp N9        &kp ESCAPE    &kp RG(C)      &kp RG(R)  &kp RG(T)  &kp RG(W)  &kp TAB
+&kp EQUAL  &kp NUMBER_7  &kp N8        &kp N9        &kp ESCAPE    &kp RG(C)      &kp RG(W)  &kp RG(R)  &kp RG(T)  &kp TAB
 &kp PLUS   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp TAB       &kp LG(F)      &kp RG(S)  &kp RG(Z)  &kp RG(Y)  &kp BACKSPACE
 &kp N0     &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp ASTERISK  &kp RG(RS(V))  &kp RG(V)  &kp RG(P)  &kp RG(X)  &kp DEL
                          &trans        &trans        &trans        &trans         &trans     &trans
