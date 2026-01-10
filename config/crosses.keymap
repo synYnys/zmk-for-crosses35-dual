@@ -67,10 +67,10 @@
         mouse_layer {
             display-name = "Mouse";
             bindings = <
-&kp ESC        &kp LS(LC(TAB))   &kp LC(TAB)           &kp LA(UP_ARROW)   &kp LA(DOWN)    &kp N7        &kp N8        &kp N9        &kp RG(W)  &kp RG(R)
-&kp LG(LA(L))  &kp LG(LA(LEFT))  &kp LG(LA(UP_ARROW))  &kp LG(LA(RIGHT))  &kp LG(LA(R))   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp L      &none
-&trans         &kp LG(LS(S))     &kp LS(LA(F))         &kp LG(S)          &kp LG(LS(N5))  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp N0     &trans
-                                 &trans                &trans             &trans          &trans        &trans        &trans
+&kp ESC        &kp LS(LC(TAB))   &kp LC(TAB)                      &kp LA(UP_ARROW)   &kp LA(DOWN)    &kp N7        &kp N8        &kp N9        &kp RG(W)  &kp RG(R)
+&kp LG(LA(L))  &kp LG(LA(LEFT))  &mt LEFT_SHIFT LA(LG(UP_ARROW))  &kp LG(LA(RIGHT))  &kp LG(LA(R))   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp L      &none
+&trans         &kp LG(LS(S))     &kp LS(LA(F))                    &kp LG(S)          &kp LG(LS(N5))  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp N0     &trans
+                                 &trans                           &trans             &trans          &trans        &trans        &trans
             >;
         };
 
