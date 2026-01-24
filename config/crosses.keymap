@@ -15,6 +15,16 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+
+        to_layer_5: to_layer_5 {
+            compatible = "zmk,behavior-hold-tap";
+            label = "TO_LAYER_5";
+            bindings = <&to>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            hold-trigger-key-positions = <5>;
+        };
     };
 
     combos {
@@ -80,6 +90,15 @@
 &trans  &trans  &trans  &bootloader  &trans  &trans        &bootloader   &trans        &trans        &bt BT_CLR
 &trans  &trans  &trans  &trans       &trans  &trans        &trans        &trans        &trans        &trans
                 &trans  &bootloader  &trans  &trans        &bootloader   &trans
+            >;
+        };
+
+        layer_5 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &mkp LCLK  &trans  &trans
             >;
         };
     };
