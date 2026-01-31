@@ -1,0 +1,3 @@
+parse_config:
+  zmk_keyboard_overrides:
+    crosses: corne_rotated
