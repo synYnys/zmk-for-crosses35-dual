@@ -67,9 +67,9 @@
         raise_layer {
             display-name = "Raise";
             bindings = <
-&kp F7               &kp F8           &kp F9             &kp F10              &kp F11        &kp HOME  &kp PAGE_DOWN  &kp LC(F3)    &kp PAGE_DOWN  &kp END
-&mt LEFT_CONTROL F1  &mt LEFT_ALT F2  &mt LEFT_SHIFT F3  &mt LEFT_COMMAND F4  &kp F5         &kp LEFT  &kp DOWN       &kp UP_ARROW  &kp RIGHT      &kp BACKSPACE
-&kp F12              &kp F6           &kp LEFT_BRACKET   &kp RIGHT_BRACKET    &kp BACKSLASH  &kp F5    &kp F4         &kp TILDE     &kp SQT        &kp SEMICOLON
+&kp F7               &kp F8           &kp F9             &kp F10              &kp F11        &kp HOME  &kp PAGE_DOWN  &kp LC(UP_ARROW)  &kp PAGE_DOWN  &kp END
+&mt LEFT_CONTROL F1  &mt LEFT_ALT F2  &mt LEFT_SHIFT F3  &mt LEFT_COMMAND F4  &kp F5         &kp LEFT  &kp DOWN       &kp UP_ARROW      &kp RIGHT      &kp BACKSPACE
+&kp F12              &kp F6           &kp LEFT_BRACKET   &kp RIGHT_BRACKET    &kp BACKSLASH  &kp F5    &kp F4         &kp TILDE         &kp SQT        &kp SEMICOLON
                                       &trans             &trans               &trans         &trans    &trans         &trans
             >;
         };
