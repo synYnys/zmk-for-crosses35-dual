@@ -13,10 +13,21 @@ permissions:
 
 jobs:
   draw:
-    uses: caksoylar/keymap-drawer-action/.github/workflows/draw-zmk.yml@v1
-    with:
-      keymap_patterns: "config/*.keymap"
-      output_folder: "img"
-      parse_args: ""
-      draw_args: ""
-      commit_message: "[Draw] Update keymap diagram"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Draw Keymap
+        uses: caksoylar/keymap-drawer-action@v1
+        with:
+          keymap_patterns: "config/*.keymap"
+          output_folder: "img"
+          parse_args: ""
+          draw_args: ""
+
+      - name: Commit Updated Images
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[Draw] Update keymap diagram"
+          file_pattern: "img/*.svg"
