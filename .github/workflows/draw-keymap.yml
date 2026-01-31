@@ -26,7 +26,6 @@ jobs:
 
       - name: Generate Keymap
         run: |
-          # 1. キーマップファイルを探す
           KEYMAP_FILE=$(find config -name "*.keymap" | head -n 1)
           
           if [ -z "$KEYMAP_FILE" ]; then
@@ -34,13 +33,12 @@ jobs:
             exit 1
           fi
 
-          # 2. データを解析する（修正点：ここで -c オプションを削除しました）
           echo "Parsing keymap..."
           keymap parse -z "$KEYMAP_FILE" > keymap_data.yaml
           
-          # 3. 画像を描画する（ここで設定ファイルを使い、形をCorneに置き換えます）
           echo "Drawing image..."
-          keymap draw keymap_data.yaml -c keymap_drawer.config.yaml > img/crosses.svg
+          # 【修正箇所】 -c オプションを draw の前に移動しました
+          keymap -c keymap_drawer.config.yaml draw keymap_data.yaml > img/crosses.svg
 
       - name: Commit Image
         uses: stefanzweifel/git-auto-commit-action@v5
