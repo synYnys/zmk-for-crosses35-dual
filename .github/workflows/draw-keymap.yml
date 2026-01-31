@@ -1,10 +1,11 @@
 name: Draw Keymap
 
 on:
-  workflow_dispatch:  # 手動実行ボタン
-  push:               # ファイル変更時
+  workflow_dispatch:
+  push:
     paths:
       - "config/**.keymap"
+      - "keymap_drawer.config.yaml" # 設定ファイルの変更でも動くように追加
       - ".github/workflows/draw-keymap.yml"
 
 permissions:
@@ -25,19 +26,22 @@ jobs:
 
       - name: Generate Keymap
         run: |
-          # configフォルダの中から .keymap ファイルを強制的に探す
+          # .keymap ファイルを探す
           KEYMAP_FILE=$(find config -name "*.keymap" | head -n 1)
           
-          echo "見つかったファイル: $KEYMAP_FILE"
+          echo "Found keymap file: $KEYMAP_FILE"
           
           if [ -z "$KEYMAP_FILE" ]; then
-            echo "エラー: .keymap ファイルが見つかりませんでした！"
+            echo "Error: Keymap file not found!"
             exit 1
           fi
 
-          # 図を生成して img/crosses.svg に保存
-          keymap parse -z "$KEYMAP_FILE" > keymap_data.yaml
-          keymap draw keymap_data.yaml > img/crosses.svg
+          # 【修正点】 -c オプションで設定ファイルを強制的に指定
+          echo "Generating data using config file..."
+          keymap parse -c keymap_drawer.config.yaml -z "$KEYMAP_FILE" > keymap_data.yaml
+          
+          echo "Drawing image..."
+          keymap draw -c keymap_drawer.config.yaml keymap_data.yaml > img/crosses.svg
 
       - name: Commit Image
         uses: stefanzweifel/git-auto-commit-action@v5
