@@ -1,0 +1,38 @@
+name: Draw Keymap
+
+# 1. いつ実行するか：configフォルダ内のファイルが変更されてpushされた時
+on:
+  workflow_dispatch:  # 手動実行ボタンも有効にする
+  push:
+    paths:
+      - "config/*.keymap"
+      - "config/*.dtsi"
+      - "keymap_drawer.config.yaml"
+      - ".github/workflows/draw-keymap.yml"
+
+# 2. 権限の設定：画像をリポジトリに保存（書き込み）するために必要
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    uses: caksoylar/keymap-drawer-action/.github/workflows/draw-zmk.yml@v1
+    with:
+      # 【重要】ここにあなたの .keymap ファイル名を指定します
+      # 例: "config/crosses.keymap" など。
+      # ワイルドカードも使えますが、ファイル名を指定したほうが確実です。
+      keymap_patterns: "config/*.keymap"
+
+      # 生成されたSVG画像を保存するフォルダ名
+      output_folder: "img"
+
+      # 設定ファイルがある場合は指定（なければデフォルトが使われます）
+      config_path: "keymap_drawer.config.yaml"
+
+      # 図の生成元となるJSONも保存するか（デバッグ用に便利）
+      parse_args: ""  # 必要に応じて "--columns 12" などを追加可能
+      draw_args: ""   # 必要に応じて表示オプションを追加可能
+      
+      # 生成された画像を自動でコミットするか
+      commit_message: "[Draw] Update keymap diagram"
+      amend_commit: false # 履歴を残すためにfalse推奨
