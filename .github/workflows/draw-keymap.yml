@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "config/*.keymap"
-      - "config/*.dtsi"
+      - "config/**.keymap"
+      - "config/**.dtsi"
       - ".github/workflows/draw-keymap.yml"
 
 permissions:
@@ -13,10 +13,10 @@ permissions:
 
 jobs:
   draw:
-    # 修正点：ここにあった "-action" という余計な文字を削除しました
     uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
     with:
-      keymap_patterns: "config/*.keymap"
+      # 変更点：config以下のサブフォルダも全部探すようにしました
+      keymap_patterns: "config/**/*.keymap"
       output_folder: "img"
       parse_args: ""
       draw_args: ""
