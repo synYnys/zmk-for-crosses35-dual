@@ -1,11 +1,10 @@
 name: Draw Keymap
 
 on:
-  workflow_dispatch:
-  push:
+  workflow_dispatch:  # 手動実行ボタン
+  push:               # ファイル変更時
     paths:
       - "config/**.keymap"
-      - "config/**.dtsi"
       - ".github/workflows/draw-keymap.yml"
 
 permissions:
@@ -13,11 +12,35 @@ permissions:
 
 jobs:
   draw:
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    with:
-      # 変更点：config以下のサブフォルダも全部探すようにしました
-      keymap_patterns: "config/**/*.keymap"
-      output_folder: "img"
-      parse_args: ""
-      draw_args: ""
-      commit_message: "[Draw] Update keymap diagram"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Keymap Drawer
+        run: pipx install keymap-drawer
+
+      - name: Create Image Folder
+        run: mkdir -p img
+
+      - name: Generate Keymap
+        run: |
+          # configフォルダの中から .keymap ファイルを強制的に探す
+          KEYMAP_FILE=$(find config -name "*.keymap" | head -n 1)
+          
+          echo "見つかったファイル: $KEYMAP_FILE"
+          
+          if [ -z "$KEYMAP_FILE" ]; then
+            echo "エラー: .keymap ファイルが見つかりませんでした！"
+            exit 1
+          fi
+
+          # 図を生成して img/crosses.svg に保存
+          keymap parse -z "$KEYMAP_FILE" > keymap_data.yaml
+          keymap draw keymap_data.yaml > img/crosses.svg
+
+      - name: Commit Image
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[Draw] Update keymap diagram"
+          file_pattern: "img/*.svg"
