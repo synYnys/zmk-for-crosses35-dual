@@ -1,37 +1,25 @@
 /* config/crosses_left.overlay */
 
 &spi1 {
-    /* 「:」を付けてラベルを定義します */
     trackball_peripheral: trackball_peripheral@0 {
-        /* compatibleなどは既存の定義を継承 */
         cpi = <300>;
-        
-        /* 元の定義に存在する場合のみ有効 */
         /delete-property/ x-invert;
         /delete-property/ y-invert;
     };
 };
 
 / {
-    /* 1. スケール調整用のノード定義 */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
-        type = <0x02>; /* EV_REL */
-        codes = <0x00 0x01>; /* REL_X, REL_Y */
+        type = <0x02>;
+        codes = <0x00 0x01>;
         track-remainders;
     };
 
-    /* 2. 入力処理の適用 */
-    /* 注：通常、分割キーボードの入力処理は「Central（中央）」側で行いますが、
-       シールドの仕様でPeripheral側で処理する場合は以下の通りです */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_peripheral>;
-        
-        input-processors = 
-            <&trackball_scaler 1 60>,          /* 1/60倍速（非常に遅い） */
-            <&zip_xy_to_scroll_mapper>,        /* 移動をスクロールに変換 */
-            <&zip_ble_report_rate_limit>;      /* BLE帯域制限（カクつく場合は削除） */
+        input-processors = <&trackball_scaler 1 10>, <&zip_xy_to_scroll_mapper>;
     };
 };
