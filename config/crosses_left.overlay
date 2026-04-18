@@ -3,8 +3,6 @@
 &spi1 {
     trackball_peripheral: trackball_peripheral@0 {
         cpi = <300>;
-        /delete-property/ x-invert;
-        /delete-property/ y-invert;
     };
 };
 
