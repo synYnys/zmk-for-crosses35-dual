@@ -1,4 +1,4 @@
-　/* config/crosses_left.overlay */
+/* config/crosses_left.overlay */
 
 &spi1 {
     /* 「:」を付けてラベルを定義します */
