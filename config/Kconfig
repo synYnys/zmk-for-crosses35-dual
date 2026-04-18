@@ -1,3 +1,4 @@
+# 存在しない設定項目を仮定義してエラーを防ぐおまじない
 config PMW3610_INIT_POWER_UP_EXTRA_DELAY_MS
     int
 config PMW3610_ANTI_WARP
