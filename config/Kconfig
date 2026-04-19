@@ -1,4 +1,3 @@
-# 外部のシールドが勝手に使っている「謎の単語」をすべて定義してエラーを消す
 config PMW3610_IGNORE_FIRST_N
     int
     default 15
