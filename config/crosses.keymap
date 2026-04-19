@@ -20,6 +20,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "TO_LAYER_5";
             bindings = <&to>, <&kp>;
+
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             hold-trigger-key-positions = <5>;
@@ -28,18 +29,27 @@
 
     combos {
         compatible = "zmk,combos";
-        esc { bindings = <&kp ESCAPE>; key-positions = <0 1>; };
-        Layr { bindings = <&mo 4>; key-positions = <32 33>; };
+
+        esc {
+            bindings = <&kp ESCAPE>;
+            key-positions = <0 1>;
+        };
+
+        Layr {
+            bindings = <&mo 4>;
+            key-positions = <32 33>;
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
+
         default_layer {
             display-name = "Base";
             bindings = <
-&mt ESC Q           &kp L           &kp U                  &kp COMMA           &kp PERIOD                  &kp F      &kp W                   &kp R               &kp Y            &mt DEL P
+&mt ESC Q           &kp L           &kp U                  &kp COMMA           &kp PERIOD                  &kp F      &kp W                   &kp R             &kp Y            &mt DEL P
 &mt LEFT_CONTROL E  &mt LEFT_ALT I  &mt LEFT_SHIFT A       &mt LEFT_COMMAND O  &kp MINUS                   &kp K      &mt RIGHT_COMMAND T     &mt LEFT_SHIFT N  &mt RIGHT_ALT S  &mt RIGHT_CONTROL H
-&lt 3 Z             &lt 2 X         &lt 1 C                &mt SPACE V         &mt LEFT_COMMAND SEMICOLON  &kp G      &kp D                   &kp M               &kp J            &lt 1 B
+&lt 3 Z             &lt 2 X         &lt 1 C                &mt SPACE V         &mt LEFT_COMMAND SEMICOLON  &kp G      &kp D                   &kp M             &kp J            &lt 1 B
                                     &mt LEFT_COMMAND CAPS  &lt 2 ENTER         &lt 1 SPACE                 &mkp LCLK  &mt LEFT_ALT BACKSPACE  &mkp RCLK
             >;
         };
@@ -49,8 +59,8 @@
             bindings = <
 &kp EQUAL              &kp NUMBER_7                   &kp N8             &kp N9                     &kp SLASH         &kp RG(P)  &kp RG(W)  &kp RG(R)      &kp RG(Y)  &kp TAB
 &mt LEFT_CONTROL PLUS  &mt LA(RC(LEFT_ALT)) NUMBER_4  &mt LEFT_SHIFT N5  &mt LEFT_COMMAND NUMBER_6  &kp LEFT_COMMAND  &kp LG(F)  &kp RG(T)  &kp RG(Z)      &kp RG(S)  &kp BACKSPACE
-&kp N0                 &kp NUMBER_1                   &kp NUMBER_2       &kp NUMBER_3               &kp ASTERISK      &kp RG(C)  &kp RG(V)  &kp RG(LS(V))  &kp RG(X)  &kp DEL
-                                                                         &trans                     &trans            &trans     &trans     &trans         &trans
+&kp N0                 &kp NUMBER_1                   &kp NUMBER_2       &kp NUMBER_3               &kp ASTERISK      &kp AT     &kp RG(V)  &kp RG(LS(V))  &kp RG(X)  &kp DEL
+                                                      &trans             &trans                     &trans            &trans     &trans     &trans
             >;
         };
 
@@ -60,7 +70,7 @@
 &kp F7               &kp F8           &kp F9             &kp F10              &kp F11        &kp HOME  &kp PAGE_DOWN  &kp LC(UP_ARROW)  &kp PAGE_DOWN  &kp END
 &mt LEFT_CONTROL F1  &mt LEFT_ALT F2  &mt LEFT_SHIFT F3  &mt LEFT_COMMAND F4  &kp F5         &kp LEFT  &kp DOWN       &kp UP_ARROW      &kp RIGHT      &kp BACKSPACE
 &kp F12              &kp F6           &kp LEFT_BRACKET   &kp RIGHT_BRACKET    &kp BACKSLASH  &kp F5    &kp F4         &kp TILDE         &kp SQT        &kp SEMICOLON
-                                                         &trans               &trans         &trans    &trans         &trans            &trans
+                                      &trans             &trans               &trans         &trans    &trans         &trans
             >;
         };
 
@@ -70,7 +80,7 @@
 &kp ESC        &kp LS(LC(TAB))   &kp LC(TAB)                      &kp LA(UP_ARROW)   &kp LA(DOWN)    &kp N7        &kp N8        &kp N9        &kp RG(W)  &kp RG(R)
 &kp LG(LA(L))  &kp LG(LA(LEFT))  &mt LEFT_SHIFT LA(LG(UP_ARROW))  &kp LG(LA(RIGHT))  &kp LG(LA(R))   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp PLUS   &kp TAB
 &trans         &kp LG(LS(S))     &kp LS(LA(F))                    &kp LG(S)          &kp LG(LS(N5))  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp N0     &kp LS(TAB)
-                                                                  &trans             &trans          &trans        &trans        &trans        &trans
+                                 &trans                           &trans             &trans          &trans        &trans        &trans
             >;
         };
 
