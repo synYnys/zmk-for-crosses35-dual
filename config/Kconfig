@@ -1,16 +1,24 @@
 config PMW3610_INIT_POWER_UP_EXTRA_DELAY_MS
     int
+    default 1500
 config PMW3610_ANTI_WARP
     bool
+    default y
 config PMW3610_ANTI_WARP_THRES
     int
+    default 100
 config PMW3610_REPORT_INTERVAL_MIN
     int
+    default 0
 config PMW3610_SQUAL_LOG
     bool
+    default n
 config PMW3610_SQUAL_LOG_INTERVAL
     int
+    default 250
 config PMW3610_IGNORE_FIRST_N
     int
+    default 15
 config PMW3610_IGNORE_AFTER_REST
     bool
+    default n
