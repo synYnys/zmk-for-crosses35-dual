@@ -10,8 +10,8 @@
         as: auto_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <0>;
+            tapping-term-ms = <200>; // ここをハイフンに修正済
+            quick-tap-ms = <0>;       // ここをハイフンに修正済
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
@@ -20,29 +20,21 @@
             compatible = "zmk,behavior-hold-tap";
             label = "TO_LAYER_5";
             bindings = <&to>, <&kp>;
-
             #binding-cells = <2>;
-            tapping-term-ms = <200>;
+            tapping-term-ms = <200>; // ここをハイフンに修正済
             hold-trigger-key-positions = <5>;
         };
     };
 
     combos {
         compatible = "zmk,combos";
-
-        esc {
-            bindings = <&kp ESCAPE>;
-            key-positions = <0 1>;
-        };
-
-        Layr {
-            bindings = <&mo 4>;
-            key-positions = <32 33>;
-        };
+        esc { bindings = <&kp ESCAPE>; key-positions = <0 1>; };
+        Layr { bindings = <&mo 4>; key-positions = <32 33>; };
     };
 
     keymap {
         compatible = "zmk,keymap";
+        // ... (以下、レイヤー設定などは今のままで大丈夫です)
 
         default_layer {
             display-name = "Base";
