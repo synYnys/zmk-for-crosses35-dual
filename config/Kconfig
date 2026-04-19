@@ -1,4 +1,3 @@
-# 外部ファイルが原因の「undefined symbol」エラーを物理的に消すための定義
 config PMW3610_IGNORE_FIRST_N
     int
     default 15
@@ -11,11 +10,3 @@ config PMW3610_ANTI_WARP
 config PMW3610_ANTI_WARP_THRES
     int
     default 100
-config PMW3610_INIT_POWER_UP_EXTRA_DELAY_MS
-    int
-config PMW3610_REPORT_INTERVAL_MIN
-    int
-config PMW3610_SQUAL_LOG
-    bool
-config PMW3610_SQUAL_LOG_INTERVAL
-    int
