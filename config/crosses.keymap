@@ -10,8 +10,8 @@
         as: auto_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <0>;
+            tapping_term_ms = <200>;
+            quick_tap_ms = <0>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
@@ -50,17 +50,17 @@
 &mt ESC Q           &kp L           &kp U                  &kp COMMA           &kp PERIOD                  &kp F      &kp W                   &kp R             &kp Y            &mt DEL P
 &mt LEFT_CONTROL E  &mt LEFT_ALT I  &mt LEFT_SHIFT A       &mt LEFT_COMMAND O  &kp MINUS                   &kp K      &mt RIGHT_COMMAND T     &mt LEFT_SHIFT N  &mt RIGHT_ALT S  &mt RIGHT_CONTROL H
 &lt 3 Z             &lt 2 X         &lt 1 C                &mt SPACE V         &mt LEFT_COMMAND SEMICOLON  &kp G      &kp D                   &kp M             &kp J            &lt 1 B
-                                    &mt LEFT_COMMAND CAPS  &lt 2 ENTER         &lt 1 SPACE                 &mkp LCLK  &mt LEFT_ALT BACKSPACE  &mkp RCLK
+                                    &mt LEFT_COMMAND CAPS  &lt 2 SPACE         &lt 1 ENTER                 &mkp LCLK  &mt LEFT_ALT BACKSPACE  &mkp RCLK
             >;
         };
 
         lower_layer {
             display-name = "Lower";
             bindings = <
-&kp EQUAL              &kp NUMBER_7                   &kp N8             &kp N9                     &kp SLASH         &kp RG(P)  &kp RG(W)  &kp RG(R)      &kp RG(Y)  &kp TAB
-&mt LEFT_CONTROL PLUS  &mt LA(RC(LEFT_ALT)) NUMBER_4  &mt LEFT_SHIFT N5  &mt LEFT_COMMAND NUMBER_6  &kp LEFT_COMMAND  &kp LG(F)  &kp RG(T)  &kp RG(Z)      &kp RG(S)  &kp BACKSPACE
-&kp N0                 &kp NUMBER_1                   &kp NUMBER_2       &kp NUMBER_3               &kp ASTERISK      &kp AT     &kp RG(V)  &kp RG(LS(V))  &kp RG(X)  &kp DEL
-                                                      &trans             &trans                     &trans            &trans     &trans     &trans
+&kp EQUAL              &kp NUMBER_7                   &kp N8             &kp N9                     &kp SLASH         &kp RG(P)    &kp RG(W)  &kp RG(R)      &kp RG(Y)  &kp TAB
+&mt LEFT_CONTROL PLUS  &mt LA(RC(LEFT_ALT)) NUMBER_4  &mt LEFT_SHIFT N5  &mt LEFT_COMMAND NUMBER_6  &kp LEFT_COMMAND  &kp LG(F)    &kp RG(T)  &kp RG(Z)      &kp RG(S)  &kp BACKSPACE
+&kp N0                 &kp NUMBER_1                   &kp NUMBER_2       &kp NUMBER_3               &kp ASTERISK      &kp AT_SIGN  &kp RG(V)  &kp RG(LS(V))  &kp RG(X)  &kp DEL
+                                                      &trans             &trans                     &trans            &trans       &trans     &trans
             >;
         };
 
@@ -86,10 +86,10 @@
 
         layer_4 {
             bindings = <
-&trans  &trans  &trans  &trans       &trans  &bt BT_SEL 4  &bt BT_SEL 3  &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0
-&trans  &trans  &trans  &bootloader  &trans  &trans        &bootloader   &trans        &trans        &bt BT_CLR
-&trans  &trans  &trans  &trans       &trans  &trans        &trans        &trans        &trans        &trans
-                &trans  &bootloader  &trans  &trans        &bootloader   &trans
+&kp SPACE  &trans  &trans  &trans       &trans  &bt BT_SEL 4  &bt BT_SEL 3  &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0
+&trans     &trans  &trans  &bootloader  &trans  &trans        &bootloader   &trans        &trans        &bt BT_CLR
+&trans     &trans  &trans  &trans       &trans  &trans        &trans        &trans        &trans        &trans
+                   &trans  &bootloader  &trans  &trans        &bootloader   &trans
             >;
         };
 
