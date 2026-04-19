@@ -1,12 +1,18 @@
 /* config/crosses_left.overlay */
 
 &spi1 {
-    trackball_peripheral: trackball_peripheral@0 {
+    trackball_peripheral@0 {
+        /* 感度設定（遅め） */
         cpi = <300>;
+        
+        /* Macアプリで反転させるため、ここの反転設定は全て削除して「標準」に戻します */
+        /delete-property/ x-invert;
+        /delete-property/ y-invert;
     };
 };
 
 / {
+    /* 1. 速度調整（スケーラー） */
     trackball_scaler: trackball_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -15,9 +21,17 @@
         track-remainders;
     };
 
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball_peripheral>;
-        input-processors = <&trackball_scaler 1 10>, <&zip_xy_to_scroll_mapper>;
+    /* 2. 適用 */
+    split_inputs {
+        trackball_peripheral_split@0 {
+            /* 設定内容：
+               1. <&trackball_scaler 1 60> -> 「1/60倍速」に設定（ものすごく遅くなります）
+               2. 反転設定は削除（Macアプリにお任せ）
+               3. スクロール変換
+            */
+            input-processors = <&trackball_scaler 1 60>, 
+                               <&zip_xy_to_scroll_mapper>, 
+                               <&zip_ble_report_rate_limit>;
+        };
     };
 };
