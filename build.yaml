@@ -7,4 +7,5 @@ include:
     shield: crosses_right
     artifact-name: crosses_36_right
     snippet: studio-rpc-usb-uart
+    # ここに「-DZMK_KCONFIG_WERROR=n」を付け忘れないでください！
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DZMK_KCONFIG_WERROR=n
