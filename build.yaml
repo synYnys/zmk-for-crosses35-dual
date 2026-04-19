@@ -2,11 +2,8 @@ include:
   - board: nice_nano_v2
     shield: crosses_left
     artifact-name: crosses_36_left
-    # 「WERROR=n」を使うのが、今のZMKでの正解です
-    cmake-args: -DZMK_KCONFIG_WERROR=n
   - board: nice_nano_v2
     shield: crosses_right
     artifact-name: crosses_36_right
     snippet: studio-rpc-usb-uart
-    # 右側にも同じ命令を叩き込みます
-    cmake-args: -DCONFIG_ZMK_STUDIO=y -DZMK_KCONFIG_WERROR=n
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
