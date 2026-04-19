@@ -1,3 +1,4 @@
+# 外部ファイルが原因の「undefined symbol」エラーを物理的に消すための定義
 config PMW3610_IGNORE_FIRST_N
     int
     default 15
