@@ -18,7 +18,7 @@
 
         to_layer_5: to_layer_5 {
             compatible = "zmk,behavior-hold-tap";
-            label = "TO_LAYER_5";
+    
             bindings = <&to>, <&kp>;
             #binding-cells = <2>;
             tapping-term-ms = <200>;
