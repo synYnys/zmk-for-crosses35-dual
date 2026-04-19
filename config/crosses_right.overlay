@@ -1,21 +1,21 @@
 /* crosses_right.overlay */
 
 &spi1 {
-    /* 「trackball_central:」というラベルを先頭に追加します */
-    trackball_central: trackball_central@0 {
-        /* 省略：compatibleなどは既存の設定を維持してください */
+    trackball_central@0 {
+        /* カクつきを抑えるため、読み取り密度を上げます（800 -> 1200） */
         cpi = <1200>;
     };
 };
 
 / {
+    /* リスナー設定 */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_central>;
         
-        /* 既存のプロセッサ設定を上書きして、スケーラーのみにします。
-           これによって、おっしゃる通りレート制限がかからなくなります。
+        /* カクつきの最大の原因である「zip_ble_report_rate_limit」を削除します。
+           これにより、Bluetooth経由でも可能な限り高頻度で信号を送るようになります。
         */
-        input-processors = <&zip_xy_scaler 1 1>;
+        input-processors = <&zip_xy_scaler 1 1>; /* 1対1（加工なし）で送信 */
     };
 };
