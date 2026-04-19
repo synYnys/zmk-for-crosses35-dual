@@ -1,9 +1,17 @@
-# 外部ファイルにある「存在しない設定」を仮定義してエラーを消す
-config PMW3610_INIT_POWER_UP_EXTRA_DELAY_MS
+# 外部ファイルが勝手に使っている単語を「正常なもの」として登録する
+config PMW3610_IGNORE_FIRST_N
     int
+    default 15
+config PMW3610_IGNORE_AFTER_REST
+    bool
+    default n
 config PMW3610_ANTI_WARP
     bool
+    default y
 config PMW3610_ANTI_WARP_THRES
+    int
+    default 100
+config PMW3610_INIT_POWER_UP_EXTRA_DELAY_MS
     int
 config PMW3610_REPORT_INTERVAL_MIN
     int
@@ -11,7 +19,3 @@ config PMW3610_SQUAL_LOG
     bool
 config PMW3610_SQUAL_LOG_INTERVAL
     int
-config PMW3610_IGNORE_FIRST_N
-    int
-config PMW3610_IGNORE_AFTER_REST
-    bool
