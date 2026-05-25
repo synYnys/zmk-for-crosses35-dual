@@ -73,12 +73,13 @@
             >;
         };
 
-       Mouse {
+       mouse_layer {
+            display-name = "Mouse";
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 3  &none      &bt BT_CLR  &bt BT_CLR         &none      &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0
-&none         &none         &none         &none      &none       &none              &none      &none         &none         &none
-&trans        &none         &none         &none      &none       &studio_unlock     &none      &none         &none         &trans
-                            &mkp MCLK     &mkp LCLK  &mkp RCLK   &mkp RCLK   &mkp LCLK  &mkp MCLK
+&kp ESC        &kp LS(LC(TAB))   &kp LC(TAB)                &kp LA(UP)         &kp LA(DOWN)    &kp N7        &kp N8        &kp N9        &kp RG(W)    &kp RG(R)
+&kp LG(LA(L))  &kp LG(LA(LEFT))  &mt_mod LSHIFT LA(LG(UP))  &kp LG(LA(RIGHT))  &kp LG(LA(R))   &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp PLUS     &kp TAB
+&trans         &kp LG(LS(S))     &kp LS(LA(F))              &kp LG(S)          &kp LG(LS(N5))  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp N0       &kp LS(TAB)
+                                 &trans                     &trans             &trans          &trans        &trans        &trans
             >;
         };
 
