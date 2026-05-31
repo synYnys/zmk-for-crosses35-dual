@@ -56,7 +56,7 @@
             display-name = "Lower";
             bindings = <
 &kp EQUAL              &kp NUMBER_7              &kp N8             &kp N9                     &kp SLASH         &kp RG(P)  &kp RG(W)    &kp RG(R)      &kp RG(Y)  &kp TAB
-&mt LEFT_CONTROL PLUS  &mt (LALT|RCTRL) NUMBER_4 &mt LEFT_SHIFT N5  &mt LEFT_COMMAND NUMBER_6  &kp LEFT_COMMAND  &kp LG(F)  &kp RG(T)    &kp RG(Z)      &kp RG(S)  &kp BACKSPACE
+&mt LEFT_CONTROL PLUS  &mt (LCTRL|LALT) NUMBER_4 &mt LEFT_SHIFT N5  &mt LEFT_COMMAND NUMBER_6  &kp LEFT_COMMAND  &kp LG(F)  &kp RG(T)    &kp RG(Z)      &kp RG(S)  &kp BACKSPACE
 &kp N0                 &kp NUMBER_1              &kp NUMBER_2       &kp NUMBER_3               &kp ASTERISK      &kp AT     &kp AT_SIGN  &kp RG(LS(V))  &kp RG(X)  &kp DEL
                                                                     &trans                     &trans            &trans     &trans       &trans         &trans
             >;
