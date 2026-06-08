@@ -19,6 +19,7 @@
         to_layer_5: to_layer_5 {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&to>, <&kp>;
+
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             hold-trigger-key-positions = <5>;
@@ -27,10 +28,12 @@
 
     combos {
         compatible = "zmk,combos";
+
         esc {
             bindings = <&kp ESCAPE>;
             key-positions = <0 1>;
         };
+
         layr {
             bindings = <&mo 4>;
             key-positions = <32 33>;
@@ -43,20 +46,20 @@
         default_layer {
             display-name = "Base";
             bindings = <
-&mt ESC Q           &kp L           &kp U                  &kp COMMA           &kp PERIOD                  &kp F      &kp W               &kp R             &kp Y            &mt DEL P
-&mt LEFT_CONTROL E  &mt LEFT_ALT I  &mt LEFT_SHIFT A       &mt LEFT_COMMAND O  &mt LEFT_SHIFT MINUS        &kp K      &mt RGUI T          &mt LEFT_SHIFT N  &mt RIGHT_ALT S  &mt RIGHT_CONTROL H
-&lt 3 Z             &lt 2 X         &lt 1 C                &mt LEFT_COMMAND V  &mt LEFT_COMMAND SEMICOLON  &kp G      &kp D               &kp M             &kp J            &lt 1 B
-                                    &mt LEFT_COMMAND CAPS  &lt 2 SPACE         &lt 1 ENTER                 &mkp LCLK  &mt LEFT_ALT BACKSPACE  &mkp RCLK
+&mt ESC Q           &kp L           &kp U                  &kp COMMA           &kp PERIOD                &kp F      &kp W                   &kp R             &kp Y            &mt DEL P
+&mt LEFT_CONTROL E  &mt LEFT_ALT I  &mt LEFT_SHIFT A       &mt LEFT_COMMAND O  &mt LEFT_SHIFT MINUS      &kp K      &mt RGUI T              &mt LEFT_SHIFT N  &mt RIGHT_ALT S  &mt RIGHT_CONTROL H
+&lt 3 Z             &lt 2 X         &lt 1 C                &mt LEFT_COMMAND V  &mt LEFT_SHIFT SEMICOLON  &kp G      &kp D                   &kp M             &kp J            &lt 1 B
+                                    &mt LEFT_COMMAND CAPS  &lt 2 SPACE         &lt 1 ENTER               &mkp LCLK  &mt LEFT_ALT BACKSPACE  &mkp RCLK
             >;
         };
 
         lower_layer {
             display-name = "Lower";
             bindings = <
-&kp EQUAL              &kp NUMBER_7  &kp N8             &kp N9                     &kp SLASH         &kp RG(P)  &kp RG(W)    &kp RG(R)      &kp RG(Y)  &kp TAB
+&kp EQUAL              &kp NUMBER_7           &kp N8             &kp N9                     &kp SLASH         &kp RG(P)  &kp RG(W)    &kp RG(R)      &kp RG(Y)  &kp TAB
 &mt LEFT_CONTROL PLUS  &mt LEFT_ALT NUMBER_4  &mt LEFT_SHIFT N5  &mt LEFT_COMMAND NUMBER_6  &kp LEFT_COMMAND  &kp LG(F)  &kp RG(T)    &kp RG(Z)      &kp RG(S)  &kp BACKSPACE
-&kp N0                 &kp NUMBER_1  &kp NUMBER_2       &kp NUMBER_3               &kp ASTERISK      &kp AT     &kp AT_SIGN  &kp RG(LS(V))  &kp RG(X)  &kp DEL
-                                     &trans             &trans                     &trans            &trans     &trans       &trans
+&kp N0                 &kp NUMBER_1           &kp NUMBER_2       &kp NUMBER_3               &kp ASTERISK      &kp AT     &kp AT_SIGN  &kp RG(LS(V))  &kp RG(X)  &kp DEL
+                                              &trans             &trans                     &trans            &trans     &trans       &trans
             >;
         };
 
